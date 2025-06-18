@@ -60,9 +60,10 @@ EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.
 EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com', cast=str)
 EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)  # Default port for TLS
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)  # Use TLS for security
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER',default="email@email.com")
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default="password", cast=str)  # Your email password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
