@@ -6,6 +6,7 @@ hashtags.csv
 script.py
 Backend.code-workspace
 ai_hunt/media/
+ai_hunt/static_root
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

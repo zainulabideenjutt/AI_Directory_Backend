@@ -36,6 +36,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY', default=get_random_secret_key(), cast=s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)  # Use decouple to manage debug setting
 
+# DEBUG = False  # Set to False in production
 ALLOWED_HOSTS = ['*']
 # CSRF_TRUSTED_ORIGINS = [
 #     '*' # Add your trusted origins here, e.g., 'http://localhost:8000', 'https://yourdomain.com'
@@ -68,6 +69,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -76,6 +78,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# STORAGES = {
+#     # ...
+#     "staticfiles": {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     },
+# }
+# if DEBUG:
+#     INSTALLED_APPS.append(
+#         "whitenoise.runserver_nostatic"
+#     )
 
 
 SIMPLE_JWT = {
@@ -198,6 +211,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
+
+STATIC_ROOT = BASE_DIR / 'static_root'
+
+STATIC_ROOT.mkdir(exist_ok=True, parents=True)  # Create static root directory if it doesn't exist
+STATICFILES_DIRS =[ BASE_DIR / 'staticfiles'] 
+STATICFILES_DIRS[0].mkdir(exist_ok=True, parents=True)  # Create static files directory if it doesn't exist
+
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
