@@ -14,23 +14,31 @@ from pathlib import Path
 import os 
 from datetime import timedelta
 from django.conf import settings
+from decouple import config
+from django.core.management.utils import get_random_secret_key
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+REPO_DIR = BASE_DIR.parent  # Assuming the repo is one level up from the BASE_DIR
+TEMPLATES_DIR = BASE_DIR / 'templates' 
+TEMPLATES_DIR.mkdir(exist_ok=True,parents=True)  # Create templates directory if it doesn't exist
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wtp0#9024(ujb9=0)h%gjixcxql396h53k@00_7t=53z0upzq)'
+SECRET_KEY = config('DJANGO_SECRET_KEY', default=get_random_secret_key(), cast=str)  # Use decouple to manage secret key
+# 'django-insecure-wtp0#9024(ujb9=0)h%gjixcxql396h53k@00_7t=53z0upzq)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)  # Use decouple to manage debug setting
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+# CSRF_TRUSTED_ORIGINS = [
+#     '*' # Add your trusted origins here, e.g., 'http://localhost:8000', 'https://yourdomain.com'
+# ]
 
 # Application definition
 
@@ -48,12 +56,12 @@ INSTALLED_APPS = [
 ]
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'zainulabideen.jutt1@gmail.com'           # Replace with your actual email
-EMAIL_HOST_PASSWORD = 'gbel ppoi rgpg bdmy'       # Use app password for Gmail
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend', cast=str)
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com', cast=str)
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)  # Default port for TLS
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)  # Use TLS for security
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 MIDDLEWARE = [
