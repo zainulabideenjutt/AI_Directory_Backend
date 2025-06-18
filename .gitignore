@@ -5,6 +5,7 @@ ai_categories.csv
 hashtags.csv
 script.py
 Backend.code-workspace
+media/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
