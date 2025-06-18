@@ -16,6 +16,7 @@ from datetime import timedelta
 from django.conf import settings
 from decouple import config
 from django.core.management.utils import get_random_secret_key
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -60,7 +61,7 @@ EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.
 EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com', cast=str)
 EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)  # Default port for TLS
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)  # Use TLS for security
-EMAIL_HOST_USER = config('EMAIL_HOST_USER',default="email@email.com")
+EMAIL_HOST_USER = config('EMAIL_HOST_USER',default="email@email.com",cast=str)  # Your email address
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default="password", cast=str)  # Your email password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
@@ -154,7 +155,13 @@ DATABASES = {
     }
 }
 
-
+DATABASE_PUBLIC_URL = config('DATABASE_PUBLIC_URL', default='', cast=str)
+if DATABASE_PUBLIC_URL:
+    DATABASES ={
+            'default': dj_database_url.config(
+                default=DATABASE_PUBLIC_URL,
+            )
+    }
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
