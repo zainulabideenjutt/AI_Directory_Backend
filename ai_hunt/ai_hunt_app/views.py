@@ -122,12 +122,14 @@ class ToolViewSet(viewsets.ModelViewSet):
         if image_url_raw:
             saved_image_rel = download_and_save_image(image_url_raw, 'tools/images/')
             if saved_image_rel:
-                data['image_url'] = request.build_absolute_uri(saved_image_rel)
+                # data['image_url'] = request.build_absolute_uri(saved_image_rel)
+                data['image_url'] = image_url_raw
 
         if logo_url_raw:
             saved_logo_rel = download_and_save_image(logo_url_raw, 'tools/logos/')
             if saved_logo_rel:
-                data['logo_url'] = request.build_absolute_uri(saved_logo_rel)
+                # data['logo_url'] = request.build_absolute_uri(saved_logo_rel)
+                data['image_url'] = logo_url_raw
 
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -152,13 +154,15 @@ class ToolViewSet(viewsets.ModelViewSet):
             # Download & save the new image
             saved_image_rel = download_and_save_image(new_image_url, 'tools/images/')
             if saved_image_rel:
-                data['image_url'] = request.build_absolute_uri(saved_image_rel)
+                # data['image_url'] = request.build_absolute_uri(saved_image_rel)
+                data['image_url'] = new_image_url
 
         if new_logo_url:
             self._delete_file_from_instance(instance.logo_url)
             saved_logo_rel = download_and_save_image(new_logo_url, 'tools/logos/')
             if saved_logo_rel:
-                data['logo_url'] = request.build_absolute_uri(saved_logo_rel)
+                # data['logo_url'] = request.build_absolute_uri(saved_logo_rel)
+                data['logo_url'] = new_logo_url
 
         serializer = self.get_serializer(instance, data=data, partial=partial)
         serializer.is_valid(raise_exception=True)
@@ -180,8 +184,8 @@ class ToolViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
 
         # Delete related files first
-        self._delete_file_from_instance(instance.image_url)
-        self._delete_file_from_instance(instance.logo_url)
+        # self._delete_file_from_instance(instance.image_url)
+        # self._delete_file_from_instance(instance.logo_url)
 
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
