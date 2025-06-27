@@ -14,7 +14,7 @@ from django.utils.timezone import now
 
 
 class Subscriber(models.Model):
-    email = models.EmailField(unique=True)
+    email = models.EmailField() # Ensure unique email addresses
     message = models.TextField()
     subscribed_at = models.DateTimeField(auto_now_add=True)
 

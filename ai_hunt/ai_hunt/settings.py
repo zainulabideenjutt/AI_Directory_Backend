@@ -34,13 +34,15 @@ SECRET_KEY = config('DJANGO_SECRET_KEY', default=get_random_secret_key(), cast=s
 # 'django-insecure-wtp0#9024(ujb9=0)h%gjixcxql396h53k@00_7t=53z0upzq)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)  # Use decouple to manage debug setting
+# DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)  # Use decouple to manage debug setting
+DEBUG = True  # Set to False in production
 
 # DEBUG = False  # Set to False in production
 ALLOWED_HOSTS = ['*']
-# CSRF_TRUSTED_ORIGINS = [
-#     '*' # Add your trusted origins here, e.g., 'http://localhost:8000', 'https://yourdomain.com'
-# ]
+# how to set trusted origins in to https://aidirectorybackend-production-cdde.up.railway.app/
+CSRF_TRUSTED_ORIGINS = [
+    'https://aidirectorybackend-production-cdde.up.railway.app',
+]
 
 # Application definition
 
@@ -172,12 +174,33 @@ WSGI_APPLICATION = 'ai_hunt.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'ai_directory',  # Replace with your database name
+#         'USER': 'ai_directory_superuser',  # Replace with your database user
+#         'PASSWORD': 'aidirectorypass@321',
+#         'HOST': 'localhost',   # or your DB host
+#         'PORT': '3306',        
+#     }
+# }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config("DB_NAME"),
+#         'USER': config("DB_USER"),
+#         'PASSWORD': config("DB_PASSWORD"),
+#         'HOST': config("DB_HOST"),
+#         'PORT': config("DB_PORT", default="5432"),
+#     }
+# }
+
 
 DATABASE_PUBLIC_URL = config('DATABASE_PUBLIC_URL', default='', cast=str)
 if DATABASE_PUBLIC_URL:

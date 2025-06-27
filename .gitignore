@@ -7,6 +7,11 @@ script.py
 Backend.code-workspace
 ai_hunt/media/
 ai_hunt/static_root
+scripts
+.dockerignore
+docker-compose.yml
+Dockerfile
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
