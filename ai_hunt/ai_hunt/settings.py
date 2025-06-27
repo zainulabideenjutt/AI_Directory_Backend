@@ -251,6 +251,7 @@ STATIC_ROOT = BASE_DIR / 'static_root'
 
 STATIC_ROOT.mkdir(exist_ok=True, parents=True)  # Create static root directory if it doesn't exist
 STATICFILES_DIRS =[ BASE_DIR / 'staticfiles'] 
+
 STATICFILES_DIRS[0].mkdir(exist_ok=True, parents=True)  # Create static files directory if it doesn't exist
 
 
