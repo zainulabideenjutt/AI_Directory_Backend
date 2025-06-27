@@ -202,13 +202,14 @@ WSGI_APPLICATION = 'ai_hunt.wsgi.application'
 # }
 
 
-DATABASE_PUBLIC_URL = config('DATABASE_PUBLIC_URL', default='', cast=str)
-if DATABASE_PUBLIC_URL:
-    DATABASES ={
-            'default': dj_database_url.config(
-                default=DATABASE_PUBLIC_URL,
-            )
-    }
+# DATABASE_PUBLIC_URL = config('DATABASE_PUBLIC_URL', default='', cast=str)
+# if DATABASE_PUBLIC_URL:
+#     DATABASES ={
+#             'default': dj_database_url.config(
+#                 default=DATABASE_PUBLIC_URL,
+#             )
+#     }
+DATABASES={}
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
